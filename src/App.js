@@ -11,6 +11,7 @@ import Card from "./components/Note/Card";
 import Note from "./components/Note/Note"
 import Updatenote from "./components/Note/Updatenote"
 
+
 const App = () => {
     return (
         <>
@@ -18,8 +19,8 @@ const App = () => {
                 <Router>
                     <Navbar />
                     <Routes>
-                        <Route exact path="/" element={<News country="in" category="general" />} />
-                        <Route path="/" element={<News country="in" category="general" />} />
+                        <Route exact path="/" element={<Everything />} />
+                        <Route path="/General" element={<News country="in" category="general" />} />
                         <Route path="/Everything" element={<Everything />} />
                         <Route path="/Business" element={<News country="in" category="business" />} />
                         <Route path="/Entertainment" element={<News country="in" category="entertainment" />} />
@@ -28,7 +29,7 @@ const App = () => {
                         <Route path="/Science" element={<News country="in" category="science" />} />
                         <Route path="/Sports" element={<News country="in" category="sports" />} />
                         <Route path="/signup" element={<Signup />} />
-                        <Route path="/login" element={<Login />} />
+                        <Route path="/login" element={<Login/>} />
                         <Route path="/createNote" element={<Note />} />
                         <Route path="/viewNotes" element={<Card />} />
                         <Route path="/updatenote" element={<Updatenote />} />

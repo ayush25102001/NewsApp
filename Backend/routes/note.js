@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const Note = require('../model/Note');
 const verifyToken = require('../middleware/auth');
 require('dotenv').config();

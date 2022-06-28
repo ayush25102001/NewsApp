@@ -22,7 +22,7 @@ const Everything = (props) => {
     }
     const func = async () => {
         setLoading(true)
-        const url = "https://newsapi.org/v2/everything?q=" + query + "&apiKey=726fa3dd4a6c48f7a08a6086139dcca3";
+        const url = "https://newsapi.org/v2/everything?q=" + query + "&apiKey="+process.env.REACT_APP_KEY;
         const res = await fetch(url)
         const json = await res.json()
         console.log(process.env.KEY)
