@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './note.css'
 import Carditem from './Carditem';
 import './card.css'
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Card = () => {
     const initialnotes = [];
     const [notes, setnotes] = useState(initialnotes)
@@ -18,6 +20,7 @@ const Card = () => {
 				},
 			},
 		);
+        toast.success('Note deleted Successfully!!',{autoClose:500, position: toast.POSITION.TOP_CENTER})
 		getnotes();
 	};
 

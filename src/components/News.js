@@ -30,9 +30,9 @@ const News = (props) => {
             <br></br>
             <br></br>
             {loading && <Spinner />}
-            <div className='row'>
+            <div className='row g-3'>
                 {articles.slice(0, count).map((article) => {
-                    return (<div className='col-md-3'>
+                    return (<div className='col-12 col-md-6 col-lg-3 '>
                         <NewsItem time={article.publishedAt ? article.publishedAt : "NA"} author={article.author ? article.author : "unknown"} url={article.url ? article.url : ""} imageurl={article.urlToImage ? article.urlToImage : ""} title={article.title ? article.title : ""} description={article.description ? article.description.slice(0, 88) : ""} />
                     </div>
                     )

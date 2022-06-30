@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './note.css'
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Note = () => {
     const [note, setnote] = useState({ title: "", description: "" })
     const [isLoading, setLoading] = useState(false);
@@ -19,9 +22,9 @@ const Note = () => {
         e.preventDefault();
         setLoading(true);
         if (!note.title) {
-            
+            toast.error("Title should not be empty",{autoClose:500, position: toast.POSITION.TOP_CENTER})
         } else if (!note.description) {
-            
+            toast.error("Description should not be empty",{autoClose:500, position: toast.POSITION.TOP_CENTER})
         } 
         else {
             const response = await fetch('http://localhost:5000/createNote', {
@@ -35,9 +38,11 @@ const Note = () => {
             const json = await response.json();
             console.log(json);
             if (json === false) {
+                toast.error("You are not authenticated !!",{autoClose:500, position: toast.POSITION.TOP_CENTER})
                 history('/login');
             }
             else {
+                toast.success('Note created Successfully!!',{autoClose:500, position: toast.POSITION.TOP_CENTER})
                 history('/viewNotes')
             }
         }

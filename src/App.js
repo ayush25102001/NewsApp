@@ -10,11 +10,14 @@ import Everything from "./components/Everything"
 import Card from "./components/Note/Card";
 import Note from "./components/Note/Note"
 import Updatenote from "./components/Note/Updatenote"
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const App = () => {
     return (
         <>
+            <ToastContainer />
             <div class="app">
                 <Router>
                     <Navbar />

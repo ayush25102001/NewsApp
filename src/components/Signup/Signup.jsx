@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './signup.css'
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = (props) => {
     const [credentials, setcredentials] = useState({ name: "", email: "", password: "" });
@@ -18,13 +20,12 @@ const Signup = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
-        if (!credentials.name) {
-            props.showAlert('Name should not be empty', 'danger')
-        } if (!credentials.email) {
-            props.showAlert('Email should not be empty', 'danger')
+        if(!credentials.name) {
+            toast.error("Name should not be empty",{autoClose:500, position: toast.POSITION.TOP_CENTER})
+        } else if (!credentials.email) {
+            toast.error("Email should not be empty",{autoClose:500, position: toast.POSITION.TOP_CENTER})
         } else if (!credentials.password) {
-            props.showAlert('Password should not be empty', 'danger')
+            toast.error("Password should not be empty",{autoClose:500, position: toast.POSITION.TOP_CENTER})
         } else {
             const response = await fetch('http://localhost:5000/registerUser', {
                 method: 'POST',
@@ -37,10 +38,10 @@ const Signup = (props) => {
             const json = await response.json();
             console.log(json)
             if (json === false) {
-                props.showAlert('Invalid Credentials', 'danger')
+                toast.error("Invalid credentials!!",{autoClose:500, position: toast.POSITION.TOP_CENTER})
             } else {
                 localStorage.setItem('token', json.token)
-               
+                toast.success('SignUp Successfull!!',{autoClose:500, position: toast.POSITION.TOP_CENTER})
                 history('/')
             }
         }

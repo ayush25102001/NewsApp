@@ -1,10 +1,17 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css'
+import { AiFillCloseSquare } from 'react-icons/ai';
+import Spinner from "../Spinner"
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Login = (props) => {
     const [credentials, setcredentials] = useState({ email: "", password: "" });
+
     const [isLoading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
     let history = useNavigate('/');
     const onChange = (e) => {
         setcredentials(prevState => {
@@ -18,9 +25,9 @@ const Login = (props) => {
         e.preventDefault();
         setLoading(true);
         if (!credentials.email) {
-    
+              toast.error("Email should not be empty",{autoClose:500, position: toast.POSITION.TOP_CENTER})
         } else if (!credentials.password) {
-            
+              toast.error("Password should not be empty",{autoClose:500, position: toast.POSITION.TOP_CENTER})
         } else {
             const response = await fetch('http://localhost:5000/loginUser', {
                 method: 'POST',
@@ -32,10 +39,10 @@ const Login = (props) => {
             const json = await response.json();
             console.log(json)
             if (json === false) {
-        
+                toast.error("Invalid credentials!!",{autoClose:500, position: toast.POSITION.TOP_CENTER})
             } else {
                 localStorage.setItem('token', json.token)
-               
+                toast.success('Login Successfull!!',{autoClose:500, position: toast.POSITION.TOP_CENTER})
                 history('/')
             }
         }
@@ -56,6 +63,16 @@ const Login = (props) => {
                 <br></br>
                 <button type="submit" className="bs btn btn-dark">Login</button>
             </form>
+            <div className="login_message_container">
+                {isLoading && <Spinner />}
+
+                {message && (
+                    <div className="login_message">
+                        {message}
+                        <AiFillCloseSquare className="close" onClick={() => setMessage("")} />
+                    </div>
+                )}
+            </div>
         </div>);
 }
 export default Login;
